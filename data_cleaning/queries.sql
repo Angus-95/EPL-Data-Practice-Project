@@ -60,4 +60,20 @@ SET m.MatchID = CONCAT(
     m.season,
     h.tri_code,
     a.tri_code
-);
+);                        -- This process was repeated on the other tables in the dataset.
+
+-- Query 5: Compare both attendance recoords to identify discrepancies
+-- Out of 9880 entries, 3776 discrepancies were found.
+
+SELECT COUNT(*)
+FROM epl_match_data AS e
+JOIN true_attendance AS ta
+ON e.MatchID = ta.MatchID
+WHERE e.attendance != ta.attendance; 
+
+-- 440 of these discrepancies were found to be during the 19/20 and 20/21 seasons, where matches were played without fans due to the COVID-19 pandemic.
+
+SELECT COUNT(*)
+FROM true_attendance
+WHERE (attendance IS NULL AND season = "19/20")
+OR (attendance IS NULL AND season = "20/21");
