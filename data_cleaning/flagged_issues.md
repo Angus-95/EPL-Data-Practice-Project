@@ -107,6 +107,7 @@ ORDER BY GROUPING(e.season) ASC, e.season ASC;
   ```
   
 - **2020/2021**
+  
   The entirety of the 2020/2021 season was played behind closed doors due to the COVID-19 pandemic, with the exception of 15 matches during December 2020, and 20 matches during May 2021, as confirmed on [ESPN.com](https://www.espn.com/soccer/schedule/_/date/20210518/league/eng.1). Following the logic from the previous season, this should leave 345 NULL values, while 348 were recorded. Checking which non-null values were recorded in December 2020 returned only 12 results instead of 15. A manual check on ESPN found three matches on December 20th 2020 were incorrectly recorded as null, when 2000 fans were present.
   ```
   SELECT ta.season, ta.date, ta.home, ta.away, ta.attendance, e.month
