@@ -118,7 +118,7 @@ ORDER BY GROUPING(e.season) ASC, e.season ASC;
   AND ta.season = "20/21"
   AND e.month = 12;
   ```
-  The three missing matches were identified and corrected to the correct value of 2,000. all 345 other values were amended to 0.
+  The three missing matches were identified and corrected to the correct value of 2,000. All 345 other values were amended to 0.
   ```
   UPDATE true_attendance
   SET attendance = 2000
