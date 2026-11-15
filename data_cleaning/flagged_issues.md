@@ -26,3 +26,32 @@ As the maximum capacity of White Hart Lane was only 36,284, I knew these values 
 [An online match report](https://www.espn.com/soccer/match/_/gameId/450943/manchester-city-tottenham-hotspur) for the Tottenham - Man City match on October 2nd 2016 confirmed my suspicions. The correct value should be 31,793.
 
 In order to ensure data validity a new attendance data table was created using data from [FBRef](https://fbref.com/en/comps/9/history/Premier-League-Seasons) for cross-referencing.
+When comparing the two tables the problem became more clear, with some matches off by over 50,000 attendees.
+
+```
+SELECT
+    e.season,
+    ta.date,
+    e.hometeam,
+    e.awayteam,
+    e.attendance AS original_attendance,
+    ta.attendance AS new_attendance,
+    ABS(e.attendance - ta.attendance) AS attendance_diff
+FROM epl_match_data AS e
+JOIN true_attendance AS ta
+ON e.matchid = ta.matchid
+ORDER BY attendance_diff DESC
+LIMIT 10;
+```
+|season|date|hometeam|awayteam|original_attendance|new_attendance|attendance_diff|
+|------|----|--------|--------|-------------------|--------------|---------------|
+|21/22 |2022-03-12|Man United|Tottenham|2000               |73458         |71458          |
+|21/22 |2022-02-26|Man United|Watford |2000               |73152         |71152          |
+|21/22 |2022-02-12|Man United|Southampton|2000               |73084         |71084          |
+|23/24 |2023-12-26|Man United|Aston Villa|6500               |73574         |67074          |
+|23/24 |2024-01-14|Man United|Tottenham|10000              |73489         |63489          |
+|19/20 |2019-12-26|Man United|Newcastle|10669              |73206         |62537          |
+|25/26 |2025-12-06|Bournemouth|Chelsea |73677              |11240         |62437          |
+|23/24 |2023-12-31|Tottenham|Bournemouth|2000               |61780         |59780          |
+|23/24 |2023-12-23|West Ham|Man United|4988               |64472         |59484          |
+|21/22 |2022-02-27|West Ham|Wolves  |2000               |59946         |57946          |
