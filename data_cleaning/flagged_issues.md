@@ -55,3 +55,6 @@ LIMIT 10;
 |23/24 |2023-12-31|Tottenham|Bournemouth|2000               |61780         |59780          |
 |23/24 |2023-12-23|West Ham|Man United|4988               |64472         |59484          |
 |21/22 |2022-02-27|West Ham|Wolves  |2000               |59946         |57946          |
+
+To ensure validity of the new data, a random sample of 100 matches was generated and checked manually against the attendances listed at [ESPN](www.espn.com).
+From the 100 matchday attendances checked, 90 were found to match the new fbref data, while 10 matched the original dataset. All 10 of these matches took place prior to 2007, and the attendances differed by less than 1000 in every case. I could also find records with contrasting information matching both the original and FBref figures for these matches. As such, the disparity was put down to differences in data recording methods at the time.
