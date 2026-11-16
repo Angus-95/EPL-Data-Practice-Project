@@ -87,6 +87,36 @@ ORDER BY GROUPING(e.season) ASC, e.season ASC;
 - **2007/2008**
 - **2008/2009**
 - **2009/2010**
+
+  As there were only 7 missing values during this season, they were isolated and manually updated, with the correct figures sourced from ESPN.
+
+  ```
+  SELECT *
+  FROM true_attendance
+  WHERE attendance IS NULL
+  AND season = "09/10";
+
+  UPDATE true_attendance
+  SET attendance = CASE
+      WHEN MatchID = '09/10ARSBIR' THEN 60082
+      WHEN MatchID = '09/10BURSTO' THEN 20323
+      WHEN MatchID = '09/10EVEWOL' THEN 36753
+      WHEN MatchID = '09/10HULCHE' THEN 24957
+      WHEN MatchID = '09/10STOFUL' THEN 25104
+      WHEN MatchID = '09/10STOWHU' THEN 27500
+      WHEN MatchID = '09/10SUNWOL' THEN 37566
+      ELSE attendance
+  END
+  WHERE MatchID IN (
+      '09/10ARSBIR',
+      '09/10BURSTO',
+      '09/10EVEWOL',
+      '09/10HULCHE',
+      '09/10STOFUL',
+      '09/10STOWHU',
+      '09/10SUNWOL');
+  ```
+  
 - **2010/2011**
 
   The single missing record was also missing on ESPN, so was instead identified on [11v11]([https://www.espn.co.uk/football/match/_/gameId/293170/aston-villa-west-ham-united](https://www.11v11.com/matches/west-ham-united-v-aston-villa-16-april-2011-294390/)) and updated accordingly.
