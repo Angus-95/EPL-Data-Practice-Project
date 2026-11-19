@@ -62,7 +62,7 @@ SET m.MatchID = CONCAT(
     a.tri_code
 );                        -- This process was repeated on the other tables in the dataset.
 
--- Query 5: Compare both attendance recoords to identify discrepancies
+-- Query 5: Compare original attendance records with the newly added attendance data to identify discrepancies.
 -- Out of 9880 entries, 3776 discrepancies were found.
 
 SELECT COUNT(*)
@@ -77,3 +77,11 @@ SELECT COUNT(*)
 FROM true_attendance
 WHERE (attendance IS NULL AND season = "19/20")
 OR (attendance IS NULL AND season = "20/21");
+
+-- This issue will be further addressed in a separate file.
+
+-- Query 6: Remove carriage return characters from stadium names. I want to add a column to show the percentage of total capacity used per match, and accurate stadium names are the first step in that process.
+
+UPDATE true_attendance
+SET venue = REPLACE(venue, CHAR(13), '') -- CHAR(13) represents the carriage return character.
+WHERE venue LIKE CONCAT('%', CHAR(13), '%');
